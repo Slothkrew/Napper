@@ -1,0 +1,24 @@
+<header>
+	<% if logged_in? %>
+	You're logged in as <%= session[:username] %>
+	<a href="/logout">Log out</a>
+	<% else %>
+	You're not logged in.
+
+	<p>
+		<form action="/login" method="POST">
+			<label for="username">Username</label>
+			<input type="text" name="username">
+
+			<label for="password">Password</label>
+			<input type="text"  name="password">
+
+			<input type="submit" value="Log in">
+		</form>
+	</p>
+
+	Need an account? <a href="/register">Register</a>.
+	<% end %>
+</header>
+
+<%= yield %>

@@ -1,0 +1,23 @@
+<p>Welcome to Napper! It's like Twitter, but just for internal sloth usage.</p>
+
+<p>I'm going to take the stupid approach of implementing accounts AFTER tweets, so if it goes live before accounts are implemented, please refrain from posting offensive messages under eachother's names unless it's really funny. thx mangs</p>
+
+<p>List <a href="/sloths">sloths</a> to see what's up.</p>
+
+<% if logged_in? %>
+<form action="/nap" method="POST">
+	<textarea name="body" cols="30" rows="10"></textarea>
+
+	<input type="submit">
+</form>
+<% end %>
+
+<h1>Naps:</h1>
+
+<% @naps.each do |nap| %>
+<hr>
+<div class="nap-box">
+	<span><%= nap.author %> <i>says...</i> (<%= nap.posted_date %>)</span>
+	<p><%= nap.body %></p>
+</div>
+<% end %>
