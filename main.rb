@@ -1,33 +1,14 @@
 require 'sinatra'
-require 'data_mapper'
-require 'dm-types'
 require 'bcrypt'
+require 'data_mapper'
 
 enable :sessions, :logging
 set :session_secret, 'ultra buttes'
 
-DataMapper.setup(:default, "sqlite3://#{Dir.pwd}/development.db")
+@env = ENV["RACK_ENV"] || "development"
 
-class Nap
-  include DataMapper::Resource
-  property :id,     Serial
-  property :body,   String, :required => true
-  property :author, String, :required => true
-  property :posted, DateTime
-
-  def posted_date
-    posted.strftime("%T %d/%m/%Y") if posted
-  end
-end
-
-class User
-  include DataMapper::Resource
-  property :id,              Serial
-  property :username,        String,     :required => true
-  property :password_digest, BCryptHash, :required => true
-
-  validates_uniqueness_of :username
-end
+DataMapper.setup(:default, "sqlite3://#{Dir.pwd}/#{@env}.db")
+Dir["models/*.rb"].each {|file| require "#{Dir.pwd}/#{file}" }
 
 DataMapper.finalize
 
