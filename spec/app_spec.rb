@@ -6,4 +6,17 @@ describe "My Sinatra Application" do
     get '/'
     expect(last_response).to be_ok
   end
+
+  it "should reject registration unless you specify a username and password" do
+    post "/register"
+    expect(last_response.status).to eq 400
+  end
+
+  it "should allow you to register with a username and password" do
+    post :register, { :username => "foo", :password => "bar" }
+    redirects_to_index?
+  end
+
+  it "doesn't let you register an existing account" do
+  end
 end

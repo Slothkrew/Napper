@@ -27,6 +27,8 @@ get '/register' do
 end
 
 post '/register' do
+  halt(400) unless params[:username] && params[:password]
+
   unless user_exists?(params[:username])
     puts "registrating"
     User.create({
