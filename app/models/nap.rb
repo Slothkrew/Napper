@@ -9,7 +9,11 @@ class Nap
 
   def posted_date
     if posted
-      posted.strftime("%T %d/%m/%Y")
+      if DateTime.now.to_s.include? Date.today.to_s
+        posted.strftime("%T")
+      else
+        posted.strftime("%T %d/%m/%Y")
+      end
     else
       "In the past"
     end
