@@ -12,6 +12,16 @@ describe "The user class" do
       create_user(name)
     }.to change{ User.count }.by(0)
   end
+
+  it "should tell you if a username is available" do
+    name = SecureRandom.hex
+
+    expect(User.name_taken?(name)).to be_falsey
+
+    create_user(name)
+
+    expect(User.name_taken?(name)).to be_truthy
+  end
 end
 
 def create_user(name)

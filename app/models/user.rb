@@ -8,4 +8,8 @@ class User
   property :password_digest, BCryptHash, :required => true
 
   validates_uniqueness_of :username
+
+  def User.name_taken?(username)
+    User.first(username: username)
+  end
 end

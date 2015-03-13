@@ -30,7 +30,7 @@ end
 post '/register' do
   halt(400) unless params[:username] && params[:password]
 
-  unless user_exists?(params[:username])
+  unless User.name_taken?(params[:username])
     User.create({
       username:        params[:username],
       password_digest: params[:password]
@@ -40,10 +40,6 @@ post '/register' do
   end
 
   redirect "/"
-end
-
-def user_exists?(username)
-  User.first(username: params[:username])
 end
 
 def logged_in?
