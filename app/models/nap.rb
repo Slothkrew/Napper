@@ -8,6 +8,10 @@ class Nap
   property :posted, DateTime
 
   def posted_date
-    posted.strftime("%T %d/%m/%Y") if posted
+    if posted
+      posted.strftime("%T %d/%m/%Y")
+    else
+      "In the past"
+    end
   end
 end
