@@ -18,5 +18,12 @@ describe "My Sinatra Application" do
   end
 
   it "doesn't let you register an existing account" do
+    new_name = SecureRandom.hex
+
+    post :register, { :username => new_name, :password => "bar" }
+    redirects_to_index?
+
+    post :register, { :username => new_name, :password => "bar" }
+    expect(last_response.status).to eq 400
   end
 end
