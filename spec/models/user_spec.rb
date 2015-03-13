@@ -1,6 +1,6 @@
 # spec/app_spec.rb
 require File.expand_path '../../spec_helper.rb', __FILE__
-require Dir.pwd << "/models/user.rb"
+require Dir.pwd << "/app/models/user.rb"
 
 describe "The user class" do
   it "Should ensure unique username" do

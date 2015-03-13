@@ -4,11 +4,12 @@ require 'data_mapper'
 
 enable :sessions, :logging
 set :session_secret, 'ultra buttes'
+set :root, File.dirname(__FILE__) << "/app/"
 
 @env = ENV["RACK_ENV"] || "development"
 
 DataMapper.setup(:default, "sqlite3://#{Dir.pwd}/#{@env}.db")
-Dir["models/*.rb"].each {|file| require "#{Dir.pwd}/#{file}" }
+Dir["app/models/*.rb"].each {|file| require "#{Dir.pwd}/#{file}" }
 
 DataMapper.finalize
 
